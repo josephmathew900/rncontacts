@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import Container from '../../components/common/Container';
+import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
 
 const Login = () => {
@@ -20,6 +21,8 @@ const Login = () => {
         icon={<Text>Hide</Text>}
         iconPosition="right"
       />
+
+      <CustomButton primary title="submit" />
     </Container>
   );
 };
