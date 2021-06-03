@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import RegisterComponent from '../../components/Register';
+import envs from '../../config/env';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -10,6 +11,7 @@ const Register = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
+  const {DEV_BACKEND_URL} = envs;
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -30,14 +32,14 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    // Object.keys(form).map(field => {
-    //   if (!form[field]) {
-    //     setErrors(prevError => ({
-    //       ...prevError,
-    //       [field]: `Please add a ${field}`,
-    //     }));
-    //   }
-    // });
+    Object.keys(form).map(field => {
+      if (!form[field]) {
+        setErrors(prevError => ({
+          ...prevError,
+          [field]: `Please add a ${field}`,
+        }));
+      }
+    });
   };
 
   return (
