@@ -8,7 +8,7 @@ import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
 
-const Login = () => {
+const Login = ({error, loading, onChange, onSubmit}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -24,23 +24,43 @@ const Login = () => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
 
-        <Message
-          onRetry={() => {}}
-          danger
-          message="Invalid credentials"
-          onDismiss={() => {}}
-        />
         <View style={styles.form}>
-          <Input label="Username" placeholder="Enter Username" />
+          {error && !error.error && (
+            <Message
+              onRetry={() => {}}
+              danger
+              message="Invalid credentials"
+              onDismiss={() => {}}
+            />
+          )}
+          {error?.error && (
+            <Message message={error.error} onDismiss={() => {}} danger />
+          )}
+          <Input
+            label="Username"
+            placeholder="Enter Username"
+            onChangeText={value => {
+              onChange({name: 'userName', value});
+            }}
+          />
           <Input
             label="Password"
             placeholder="Enter Password"
             secureTextEntry
             icon={<Text>Show</Text>}
             iconPosition="right"
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
           />
 
-          <CustomButton primary title="Submit" />
+          <CustomButton
+            primary
+            title="Submit"
+            loading={loading}
+            disabled={loading}
+            onPress={onSubmit}
+          />
 
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Need a new account?</Text>

@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
+import Message from '../common/Message';
 
 const Register = ({onChange, onSubmit, errors, error, loading}) => {
   const {navigate} = useNavigation();
@@ -24,7 +25,9 @@ const Register = ({onChange, onSubmit, errors, error, loading}) => {
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
-          {error?.error && <Text>{error.error}</Text>}
+          {error?.error && (
+            <Message message={error.error} onRetry={() => {}} danger />
+          )}
           <Input
             label="Username"
             placeholder="Enter Username"

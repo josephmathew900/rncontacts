@@ -1,4 +1,7 @@
 import {
+  LOGIN_FAILURE,
+  LOGIN_LOADING,
+  LOGIN_SUCCESS,
   REGISTER_FAILURE,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
@@ -7,14 +10,42 @@ import {
 
 const auth = (state, {type, payload}) => {
   switch (type) {
+    case LOGIN_LOADING:
     case REGISTER_LOADING:
-      return {...state, loading: true};
-    case REGISTER_SUCCESS:
-      return {...state, loading: false, data: payload};
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case LOGIN_FAILURE:
     case REGISTER_FAILURE:
-      return {...state, loading: false, error: payload};
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+        isLoggedIn: true,
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+      };
+
     case CLEAR_AUTH_STATE:
-      return {...state, data: null, error: null, loading: false};
+      return {
+        ...state,
+        data: null,
+        error: null,
+        loading: false,
+      };
     default:
       return state;
   }

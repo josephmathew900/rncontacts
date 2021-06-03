@@ -49,7 +49,7 @@ const Message = ({
               <TouchableOpacity
                 onPress={() => {
                   setUserDismissed(true);
-                  onDismiss;
+                  onDismiss();
                 }}>
                 <Text
                   style={{
