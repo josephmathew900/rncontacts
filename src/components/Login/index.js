@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
 import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
+import Message from '../common/Message';
 
 const Login = () => {
   const {navigate} = useNavigation();
@@ -23,6 +24,12 @@ const Login = () => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
 
+        <Message
+          onRetry={() => {}}
+          danger
+          message="Invalid credentials"
+          onDismiss={() => {}}
+        />
         <View style={styles.form}>
           <Input label="Username" placeholder="Enter Username" />
           <Input
