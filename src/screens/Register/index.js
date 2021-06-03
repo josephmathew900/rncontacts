@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import RegisterComponent from '../../components/Register';
-import envs from '../../config/env';
+import axiosInstance from '../../helpers/axiosInterceptor';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -11,7 +11,8 @@ const Register = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
-  const {DEV_BACKEND_URL} = envs;
+
+  useEffect(() => {}, []);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
