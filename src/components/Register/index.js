@@ -7,7 +7,7 @@ import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
 
-const Register = ({onChange, onSubmit, form, errors}) => {
+const Register = ({onChange, onSubmit, errors, error, loading}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -24,13 +24,14 @@ const Register = ({onChange, onSubmit, form, errors}) => {
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
+          {error?.error && <Text>{error.error}</Text>}
           <Input
             label="Username"
             placeholder="Enter Username"
             onChangeText={value => {
               onChange({name: 'userName', value});
             }}
-            error={errors.userName}
+            error={errors.userName || error?.username?.[0]}
           />
           <Input
             label="First Name"
@@ -38,7 +39,7 @@ const Register = ({onChange, onSubmit, form, errors}) => {
             onChangeText={value => {
               onChange({name: 'firstName', value});
             }}
-            error={errors.firstName}
+            error={errors.firstName || error?.first_name?.[0]}
           />
           <Input
             label="Last Name"
@@ -46,7 +47,7 @@ const Register = ({onChange, onSubmit, form, errors}) => {
             onChangeText={value => {
               onChange({name: 'lastName', value});
             }}
-            error={errors.lastName}
+            error={errors.lastName || error?.last_name?.[0]}
           />
           <Input
             label="Email"
@@ -54,7 +55,7 @@ const Register = ({onChange, onSubmit, form, errors}) => {
             onChangeText={value => {
               onChange({name: 'email', value});
             }}
-            error={errors.email}
+            error={errors.email || error?.email?.[0]}
           />
           <Input
             label="Password"
@@ -65,10 +66,16 @@ const Register = ({onChange, onSubmit, form, errors}) => {
             onChangeText={value => {
               onChange({name: 'password', value});
             }}
-            error={errors.password}
+            error={errors.password || error?.password?.[0]}
           />
 
-          <CustomButton onPress={onSubmit} primary title="Submit" />
+          <CustomButton
+            onPress={onSubmit}
+            primary
+            title="Submit"
+            loading={loading}
+            disabled={loading}
+          />
 
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>

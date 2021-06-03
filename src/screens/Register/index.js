@@ -1,6 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/core';
+import React, {useState, useEffect, useContext} from 'react';
 import RegisterComponent from '../../components/Register';
-import axiosInstance from '../../helpers/axiosInterceptor';
+import {LOGIN} from '../../constants/routeNames';
+import {clearAuthState, register} from '../../context/actions/auth/register';
+import {GlobalContext} from '../../context/Provider';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -11,16 +15,33 @@ const Register = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
+  const {
+    authDispatch,
+    authState: {error, loading, data},
+  } = useContext(GlobalContext);
+  const {navigate} = useNavigation();
 
-  useEffect(() => {}, []);
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     if (data) {
+  //       clearAuthState()(authDispatch);
+  //     }
+  //   }, [data, error]),
+  // );
+
+  useEffect(() => {
+    if (Object.keys(data).length) {
+      navigate(LOGIN);
+    }
+  }, [data]);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
 
     if (value !== '') {
       if (name == 'password') {
-        if (value.length < 6) {
-          setErrors({...errors, [name]: 'This field needs minimum 6 chars'});
+        if (value.length < 8) {
+          setErrors({...errors, [name]: 'This field needs minimum 8 chars'});
         } else {
           setErrors({...errors, [name]: null});
         }
@@ -41,14 +62,19 @@ const Register = () => {
         }));
       }
     });
+
+    if (Object.values(form).every(item => item.trim().length > 0)) {
+      register(form)(authDispatch);
+    }
   };
 
   return (
     <RegisterComponent
       onSubmit={onSubmit}
       onChange={onChange}
-      form={form}
       errors={errors}
+      error={error}
+      loading={loading}
     />
   );
 };
