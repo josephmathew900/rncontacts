@@ -67,6 +67,9 @@ const Register = ({onChange, onSubmit, errors, error, loading}) => {
             secureTextEntry={iseSecureEntry}
             icon={<Text>Show</Text>}
             iconPosition="right"
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
             icon={
               <TouchableOpacity onPress={() => setIsSecureEntry(prev => !prev)}>
                 <Text>{iseSecureEntry ? 'Show' : 'Hide'}</Text>

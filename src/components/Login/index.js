@@ -8,7 +8,7 @@ import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
 
-const Login = ({error, loading, onChange, onSubmit}) => {
+const Login = ({error, loading, form, justSignedUp, onChange, onSubmit}) => {
   const {navigate} = useNavigation();
   const [iseSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -26,9 +26,15 @@ const Login = ({error, loading, onChange, onSubmit}) => {
         <Text style={styles.subTitle}>Please login here</Text>
 
         <View style={styles.form}>
+          {justSignedUp && (
+            <Message
+              success
+              message="Account created successfully"
+              onDismiss={() => {}}
+            />
+          )}
           {error && !error.error && (
             <Message
-              onRetry={() => {}}
               danger
               message="Invalid credentials"
               onDismiss={() => {}}
@@ -39,6 +45,7 @@ const Login = ({error, loading, onChange, onSubmit}) => {
           )}
           <Input
             label="Username"
+            value={form.userName}
             placeholder="Enter Username"
             onChangeText={value => {
               onChange({name: 'userName', value});

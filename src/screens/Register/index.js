@@ -30,10 +30,8 @@ const Register = () => {
   // );
 
   useEffect(() => {
-    if (Object.keys(data).length) {
-      navigate(LOGIN);
-    }
-  }, [data]);
+    clearAuthState()(authDispatch);
+  }, []);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -63,8 +61,23 @@ const Register = () => {
       }
     });
 
-    if (Object.values(form).every(item => item.trim().length > 0)) {
-      register(form)(authDispatch);
+    // if (Object.values(form).every(item => item.trim().length > 0)) {
+    //   clearAuthState()(authDispatch);
+    //   register(form)(authDispatch)(response => {
+    //     navigate(LOGIN, {data: response});
+    //   });
+    // }
+    if (
+      Object.keys(form).every(key =>
+        key == 'password'
+          ? form[key].trim().length >= 8
+          : form[key].trim().length > 0,
+      )
+    ) {
+      clearAuthState()(authDispatch);
+      register(form)(authDispatch)(response => {
+        navigate(LOGIN, {data: response});
+      });
     }
   };
 
