@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Container from '../../components/common/Container';
@@ -10,6 +10,7 @@ import Message from '../common/Message';
 
 const Register = ({onChange, onSubmit, errors, error, loading}) => {
   const {navigate} = useNavigation();
+  const [iseSecureEntry, setIsSecureEntry] = useState(true);
 
   return (
     <Container>
@@ -63,12 +64,14 @@ const Register = ({onChange, onSubmit, errors, error, loading}) => {
           <Input
             label="Password"
             placeholder="Enter Password"
-            secureTextEntry
+            secureTextEntry={iseSecureEntry}
             icon={<Text>Show</Text>}
             iconPosition="right"
-            onChangeText={value => {
-              onChange({name: 'password', value});
-            }}
+            icon={
+              <TouchableOpacity onPress={() => setIsSecureEntry(prev => !prev)}>
+                <Text>{iseSecureEntry ? 'Show' : 'Hide'}</Text>
+              </TouchableOpacity>
+            }
             error={errors.password || error?.password?.[0]}
           />
 
