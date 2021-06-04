@@ -6,6 +6,7 @@ import {
   REGISTER_LOADING,
   REGISTER_SUCCESS,
   CLEAR_AUTH_STATE,
+  LOGOUT_USER,
 } from '../../constants/actionTypes';
 
 const auth = (state, {type, payload}) => {
@@ -38,6 +39,9 @@ const auth = (state, {type, payload}) => {
         loading: false,
         data: payload,
       };
+
+    case LOGOUT_USER:
+      return {...state, loading: false, isLoggedIn: false};
 
     case CLEAR_AUTH_STATE:
       return {

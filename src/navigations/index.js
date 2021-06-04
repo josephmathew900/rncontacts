@@ -5,9 +5,15 @@ import AuthNavigator from './AuthNavigator';
 import {GlobalContext} from '../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ActivityIndicator} from 'react-native';
+import {LOGIN_SUCCESS} from '../constants/actionTypes';
 
 const AppNavContainer = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const {
+    authState: {isLoggedIn},
+    authDispatch,
+  } = useContext(GlobalContext);
+
+  const [isAuthenticated, setIsAuthenticated] = useState();
   const [authLoaded, setAuthLoaded] = useState(false);
 
   const getUser = async () => {
@@ -16,6 +22,7 @@ const AppNavContainer = () => {
       if (user) {
         setIsAuthenticated(true);
         setAuthLoaded(true);
+        authDispatch({type: LOGIN_SUCCESS, payload: {}});
       } else {
         setIsAuthenticated(false);
         setAuthLoaded(true);
@@ -25,21 +32,13 @@ const AppNavContainer = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
-
-  const {
-    authState: {isLoggedIn},
-  } = useContext(GlobalContext);
+  }, [isLoggedIn]);
 
   return (
     <>
       {authLoaded ? (
         <NavigationContainer>
-          {isLoggedIn || isAuthenticated ? (
-            <DrawerNavigator />
-          ) : (
-            <AuthNavigator />
-          )}
+          {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       ) : (
         <ActivityIndicator
