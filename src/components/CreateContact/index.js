@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image, Switch} from 'react-native';
 import Container from '../../components/common/Container';
 import Input from '../../components/common/Input';
 import styles from './styles';
 import CustomButton from '../../components/common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
+import colors from '../../assets/theme/colors';
 
 const CreateContact = ({
   form,
@@ -14,6 +15,7 @@ const CreateContact = ({
   onSubmit,
   loading,
   error,
+  toggleValueChange,
 }) => {
   return (
     <View style={styles.container}>
@@ -64,6 +66,16 @@ const CreateContact = ({
             error={error?.phone_number?.[0]}
             keyboardType="phone-pad"
           />
+
+          <View style={styles.switchWrapper}>
+            <Text style={{fontSize: 15}}>Add to Favorites</Text>
+            <Switch
+              trackColor={{false: colors.grey, true: colors.primary}}
+              thumbColor={colors.white}
+              onValueChange={toggleValueChange}
+              value={form.isFavorite}
+            />
+          </View>
 
           <CustomButton
             loading={loading}

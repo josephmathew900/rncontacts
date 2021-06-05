@@ -16,4 +16,10 @@ export default StyleSheet.create({
     color: colors.primary,
     textAlign: 'center',
   },
+  switchWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
 });

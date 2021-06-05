@@ -16,6 +16,10 @@ const CreateContact = () => {
 
   const {navigate} = useNavigation();
 
+  const toggleValueChange = () => {
+    setForm({...form, isFavorite: !form.isFavorite});
+  };
+
   const onChangeText = ({name, value}) => {
     setForm({...form, [name]: value});
   };
@@ -34,6 +38,7 @@ const CreateContact = () => {
       onSubmit={onSubmit}
       loading={loading}
       error={error}
+      toggleValueChange={toggleValueChange}
     />
   );
 };
