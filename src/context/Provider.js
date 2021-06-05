@@ -8,14 +8,14 @@ export const GlobalContext = createContext({});
 
 const GlobalProvider = ({children}) => {
   const [authState, authDispatch] = useReducer(auth, authInitialState);
-  const [contactsState, constactsDispatch] = useReducer(
+  const [contactsState, contactsDispatch] = useReducer(
     contacts,
     ContactsInitialState,
   );
 
   return (
     <GlobalContext.Provider
-      value={{authState, contactsState, authDispatch, constactsDispatch}}>
+      value={{authState, contactsState, authDispatch, contactsDispatch}}>
       {children}
     </GlobalContext.Provider>
   );
