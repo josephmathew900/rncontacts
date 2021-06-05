@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, ScrollView, Image, Switch} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
 import Container from '../../components/common/Container';
 import Input from '../../components/common/Input';
 import styles from './styles';
@@ -7,6 +14,7 @@ import CustomButton from '../../components/common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import colors from '../../assets/theme/colors';
+import ImagePicker from '../common/ImagePicker';
 
 const CreateContact = ({
   form,
@@ -16,12 +24,17 @@ const CreateContact = ({
   loading,
   error,
   toggleValueChange,
+  sheetRef,
+  openSheet,
+  closeSheet,
 }) => {
   return (
     <View style={styles.container}>
       <Container>
         <Image source={{uri: DEFAULT_IMAGE_URI}} style={styles.imageView} />
-        <Text style={styles.chooseText}>Choose Image</Text>
+        <TouchableOpacity onPress={openSheet}>
+          <Text style={styles.chooseText}>Choose Image</Text>
+        </TouchableOpacity>
         <ScrollView>
           <Input
             label="First Name"
@@ -86,6 +99,11 @@ const CreateContact = ({
           />
         </ScrollView>
       </Container>
+      <ImagePicker
+        ref={sheetRef}
+        openSheet={openSheet}
+        closeSheet={closeSheet}
+      />
     </View>
   );
 };

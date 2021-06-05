@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import CreateContactComponent from '../../components/CreateContact';
 import createContact from '../../context/actions/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
@@ -13,6 +13,20 @@ const CreateContact = () => {
       createContact: {loading, error},
     },
   } = useContext(GlobalContext);
+
+  const sheetRef = useRef(null);
+
+  const closeSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.close();
+    }
+  };
+
+  const openSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.open();
+    }
+  };
 
   const {navigate} = useNavigation();
 
@@ -39,6 +53,9 @@ const CreateContact = () => {
       loading={loading}
       error={error}
       toggleValueChange={toggleValueChange}
+      openSheet={openSheet}
+      closeSheet={closeSheet}
+      sheetRef={sheetRef}
     />
   );
 };
