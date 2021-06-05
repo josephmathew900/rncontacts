@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/core';
 
 const CreateContact = () => {
   const [form, setForm] = useState({});
+  const [localFile, setLocalFile] = useState(null);
   const {
     contactsDispatch,
     contactsState: {
@@ -34,6 +35,11 @@ const CreateContact = () => {
     setForm({...form, isFavorite: !form.isFavorite});
   };
 
+  const onFileSelected = image => {
+    closeSheet();
+    setLocalFile(image);
+  };
+
   const onChangeText = ({name, value}) => {
     setForm({...form, [name]: value});
   };
@@ -56,6 +62,8 @@ const CreateContact = () => {
       openSheet={openSheet}
       closeSheet={closeSheet}
       sheetRef={sheetRef}
+      onFileSelected={onFileSelected}
+      localFile={localFile}
     />
   );
 };
