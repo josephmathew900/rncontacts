@@ -61,12 +61,6 @@ const Register = () => {
       }
     });
 
-    // if (Object.values(form).every(item => item.trim().length > 0)) {
-    //   clearAuthState()(authDispatch);
-    //   register(form)(authDispatch)(response => {
-    //     navigate(LOGIN, {data: response});
-    //   });
-    // }
     if (
       Object.keys(form).every(key =>
         key == 'password'
