@@ -16,8 +16,9 @@ const Contacts = ({modalVisible, setModalVisible, data, loading}) => {
     );
   };
 
-  const renderItem = ({item}) => {
-    const {contact_picture, first_name, last_name, phone_number} = item;
+  const RenderItem = ({item}) => {
+    const {contact_picture, first_name, last_name, phone_number, country_code} =
+      item;
 
     return (
       <TouchableOpacity style={styles.itemContainer}>
@@ -32,30 +33,54 @@ const Contacts = ({modalVisible, setModalVisible, data, loading}) => {
                 width: 45,
                 height: 45,
                 backgroundColor: colors.grey,
-              }}></View>
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 100,
+              }}>
+              <Text style={[styles.name, {color: colors.white}]}>
+                {first_name[0]}
+              </Text>
+              <Text style={[styles.name, {color: colors.white}]}>
+                {last_name[0]}
+              </Text>
+            </View>
           )}
-          <View style={{flexDirection: 'row'}}>
-            <Text>{first_name}</Text>
-            <Text>{last_name}</Text>
-          </View>
+          <View style={{paddingLeft: 20}}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.name}>{first_name}</Text>
+              <Text style={styles.name}>{last_name}</Text>
+            </View>
 
-          <Text>{phone_number}</Text>
+            <Text
+              style={
+                styles.phone_number
+              }>{`${country_code} ${phone_number}`}</Text>
+          </View>
         </View>
 
-        <Icon type="material" name="keyboard-arrow-right"></Icon>
+        <Icon
+          type="material"
+          name="keyboard-arrow-right"
+          size={17}
+          color={colors.grey}
+        />
       </TouchableOpacity>
     );
   };
 
   return (
-    <View>
+    <View style={{backgroundColor: colors.white}}>
       <AppModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
       {!loading ? (
         <View style={{paddingVertical: 20}}>
           <FlatList
-            renderItem={renderItem}
+            renderItem={RenderItem}
             data={data}
+            ItemSeparatorComponent={() => (
+              <View style={{height: 0.5, backgroundColor: colors.grey}}></View>
+            )}
             keyExtractor={item => String(item.id)}
             ListEmptyComponent={ListEmptyComponent}
             ListFooterComponent={<View style={{height: 150}}></View>}
