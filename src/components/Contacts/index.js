@@ -57,15 +57,12 @@ const Contacts = ({modalVisible, setModalVisible, data, loading}) => {
             </View>
           )}
           <View style={{paddingLeft: 20}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.name}>{first_name}</Text>
-              <Text style={styles.name}>{last_name}</Text>
-            </View>
+            <Text style={styles.name}>{`${first_name} ${last_name}`}</Text>
 
             <Text
               style={
                 styles.phone_number
-              }>{`${country_code} ${phone_number}`}</Text>
+              }>{`+${country_code} ${phone_number}`}</Text>
           </View>
         </View>
 

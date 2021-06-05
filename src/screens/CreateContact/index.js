@@ -1,9 +1,41 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useContext, useState} from 'react';
 import CreateContactComponent from '../../components/CreateContact';
+import createContact from '../../context/actions/contacts/createContact';
+import {GlobalContext} from '../../context/Provider';
+import {CONTACT_LIST} from '../../constants/routeNames';
+import {useNavigation} from '@react-navigation/core';
 
 const CreateContact = () => {
-  return <CreateContactComponent />;
+  const [form, setForm] = useState({});
+  const {
+    contactsDispatch,
+    contactsState: {
+      createContact: {loading, error},
+    },
+  } = useContext(GlobalContext);
+
+  const {navigate} = useNavigation();
+
+  const onChangeText = ({name, value}) => {
+    setForm({...form, [name]: value});
+  };
+
+  const onSubmit = () => {
+    createContact(form)(contactsDispatch)(() => {
+      navigate(CONTACT_LIST);
+    });
+  };
+
+  return (
+    <CreateContactComponent
+      onChangeText={onChangeText}
+      form={form}
+      setForm={setForm}
+      onSubmit={onSubmit}
+      loading={loading}
+      error={error}
+    />
+  );
 };
 
 export default CreateContact;

@@ -8,7 +8,7 @@ import axios from '../../../helpers/axiosInterceptor';
 export default () => dispatch => {
   dispatch({type: GET_CONTACTS_LOADING});
   axios
-    .get('/contacts')
+    .get('/contacts/')
     .then(res => {
       dispatch({type: GET_CONTACTS_SUCCESS, payload: res.data});
     })

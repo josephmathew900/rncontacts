@@ -41,7 +41,7 @@ const Contacts = () => {
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       data={data}
-      loading={false}
+      loading={loading}
     />
   );
 };
