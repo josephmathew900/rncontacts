@@ -10,7 +10,7 @@ import getContacts from '../../context/actions/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
   const {setOptions, toggleDrawer} = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
