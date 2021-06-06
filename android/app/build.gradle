@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.rncontacts"
+        applicationId "com.joseph.rncontacts"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
