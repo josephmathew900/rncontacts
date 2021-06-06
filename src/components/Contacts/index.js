@@ -15,7 +15,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {CREATE_CONTACT} from '../../constants/routeNames';
 
-const Contacts = ({modalVisible, setModalVisible, data, loading}) => {
+const Contacts = ({modalVisible, setModalVisible, data, loading, sortBy}) => {
   const {navigate} = useNavigation();
 
   const ListEmptyComponent = () => {
@@ -88,7 +88,27 @@ const Contacts = ({modalVisible, setModalVisible, data, loading}) => {
           <View style={{paddingVertical: 20}}>
             <FlatList
               renderItem={RenderItem}
-              data={data}
+              data={
+                sortBy
+                  ? data.sort((a, b) => {
+                      if (sortBy === 'First Name') {
+                        if (b.first_name > a.first_name) {
+                          return -1;
+                        } else {
+                          return 1;
+                        }
+                      }
+
+                      if (sortBy === 'Last Name') {
+                        if (b.last_name > a.last_name) {
+                          return -1;
+                        } else {
+                          return 1;
+                        }
+                      }
+                    })
+                  : data
+              }
               ItemSeparatorComponent={() => (
                 <View
                   style={{height: 0.5, backgroundColor: colors.grey}}></View>
