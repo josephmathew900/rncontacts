@@ -38,7 +38,6 @@ const Contacts = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       getSettings();
-      return () => {};
     }, []),
   );
 

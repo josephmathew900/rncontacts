@@ -12,7 +12,7 @@ export default form => dispatch => onSuccess => {
     last_name: form.lastName || '',
     phone_number: form.phoneNumber || '',
     contact_picture: form.contactPicture || null,
-    isFavorite: form.isFavorite || false,
+    is_favorite: form.isFavorite || false,
   };
 
   dispatch({type: CREATE_CONTACT_LOADING});
