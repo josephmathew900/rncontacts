@@ -23,6 +23,7 @@ const CreateContact = () => {
 
   useEffect(() => {
     if (params?.contact) {
+      setOptions({title: 'Update Contact'});
       const {
         first_name: firstName,
         last_name: lastName,
@@ -52,7 +53,7 @@ const CreateContact = () => {
       }
 
       if (params?.contact?.contact_picture) {
-        setLocalFile(params?.contact?.contact_picture);
+        setLocalFile({path: params?.contact?.contact_picture});
       }
     }
   }, []);
@@ -69,7 +70,7 @@ const CreateContact = () => {
     }
   };
 
-  const {navigate} = useNavigation();
+  const {navigate, setOptions} = useNavigation();
 
   const toggleValueChange = () => {
     setForm({...form, isFavorite: !form.isFavorite});
@@ -143,6 +144,7 @@ const CreateContact = () => {
       sheetRef={sheetRef}
       onFileSelected={onFileSelected}
       localFile={localFile}
+      params={params}
     />
   );
 };

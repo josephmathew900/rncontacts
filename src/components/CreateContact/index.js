@@ -28,6 +28,7 @@ const CreateContact = ({
   openSheet,
   onFileSelected,
   localFile,
+  params,
 }) => {
   return (
     <View style={styles.container}>
@@ -102,7 +103,7 @@ const CreateContact = ({
             disabled={loading}
             onPress={onSubmit}
             primary
-            title="Create Contact"
+            title={params?.editing ? 'Update Contact' : 'Create Contact'}
           />
         </ScrollView>
       </Container>
