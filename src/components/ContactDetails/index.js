@@ -1,6 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, View, TouchableOpacity} from 'react-native';
-import ImageComponent from './ImageComponent';
+import {ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
 import Icon from '../../components/common/Icon';
 import colors from '../../assets/theme/colors';
@@ -8,15 +7,47 @@ import CustomButton from '../../components/common/CustomButton';
 import {useNavigation} from '@react-navigation/core';
 import ImagePicker from '../../components/common/ImagePicker';
 import {CREATE_CONTACT} from '../../constants/routeNames';
+import {DEFAULT_IMAGE_URI} from '../../constants/general';
+import ImageComponent from '../../components/ContactDetails/ImageComponent';
 
-const ContactDetails = ({contact, onFileSelected, sheetRef}) => {
+const ContactDetails = ({
+  contact,
+  onFileSelected,
+  sheetRef,
+  openSheet,
+  closeSheet,
+  localFile,
+  isUpdating,
+  uploadSucceeded,
+}) => {
   const {contact_picture, first_name, last_name, phone_number, country_code} =
     contact;
   const {navigate} = useNavigation();
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        {contact_picture && <ImageComponent src={contact_picture} />}
+        {(contact_picture || uploadSucceeded) && (
+          <ImageComponent src={contact_picture || localFile?.path} />
+        )}
+
+        {!contact_picture && !uploadSucceeded && (
+          <View style={{alignItems: 'center', paddingVertical: 20}}>
+            <Image
+              source={{
+                uri: localFile?.path || DEFAULT_IMAGE_URI,
+              }}
+              style={styles.imageView}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                openSheet();
+              }}>
+              <Text style={{color: colors.primary}}>
+                {isUpdating ? 'Updating...' : 'Add Picture'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.content}>
           <Text style={styles.names}>{first_name + ' ' + last_name}</Text>

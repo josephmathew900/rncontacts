@@ -20,6 +20,7 @@ const CreateContact = () => {
   } = useContext(GlobalContext);
   const {params} = useRoute();
   const sheetRef = useRef(null);
+  const {navigate, setOptions} = useNavigation();
 
   useEffect(() => {
     if (params?.contact) {
@@ -70,15 +71,13 @@ const CreateContact = () => {
     }
   };
 
-  const {navigate, setOptions} = useNavigation();
-
-  const toggleValueChange = () => {
-    setForm({...form, isFavorite: !form.isFavorite});
-  };
-
   const onFileSelected = image => {
     closeSheet();
     setLocalFile(image);
+  };
+
+  const toggleValueChange = () => {
+    setForm({...form, isFavorite: !form.isFavorite});
   };
 
   const onChangeText = ({name, value}) => {
