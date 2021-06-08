@@ -47,6 +47,7 @@ const CreateContact = ({
               onChangeText({name: 'firstName', value});
             }}
             error={error?.first_name?.[0]}
+            value={form.firstName || ''}
           />
           <Input
             label="Last Name"
@@ -55,13 +56,14 @@ const CreateContact = ({
               onChangeText({name: 'lastName', value});
             }}
             error={error?.last_name?.[0]}
+            value={form.lastName || ''}
           />
           <Input
             icon={
               <CountryPicker
                 withFilter
                 withFlag
-                countryCode={form.country_code || undefined}
+                countryCode={form.countryCode || undefined}
                 withCountryNameButton={false}
                 withCallingCode
                 withCallingCodeButton
@@ -69,7 +71,7 @@ const CreateContact = ({
                 onSelect={v => {
                   const phoneCode = v.callingCode[0];
                   const cCode = v.cca2;
-                  setForm({...form, country_code: cCode, phoneCode});
+                  setForm({...form, countryCode: cCode, phoneCode});
                 }}
               />
             }
@@ -82,6 +84,7 @@ const CreateContact = ({
             placeholder="Enter Phone Number"
             error={error?.phone_number?.[0]}
             keyboardType="phone-pad"
+            value={form.phoneNumber || ''}
           />
 
           <View style={styles.switchWrapper}>
