@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ActivityIndicator} from 'react-native';
 import {LOGIN_SUCCESS} from '../constants/actionTypes';
 import {navigationRef} from './SideMenu/RootNavigator';
+import SplashScreen from 'react-native-splash-screen';
 
 const AppNavContainer = () => {
   const {
@@ -34,6 +35,12 @@ const AppNavContainer = () => {
   useEffect(() => {
     getUser();
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (authLoaded) {
+      SplashScreen.hide();
+    }
+  }, [authLoaded]);
 
   return (
     <>
